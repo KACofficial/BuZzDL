@@ -4,7 +4,7 @@ It supports downloading in almost every format using ffmpeg.
 
 ## Install
 This has only been tested on linux.
-- run `chmod +x scripts*`
+- run `chmod +x scripts/*`
 - run `./scripts/install.sh`
 - then you should be able to use `buzzdl` in your terminal.
 
