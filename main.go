@@ -36,6 +36,7 @@ func main() {
 		if err != nil {
 			fmt.Println("Error: ", err)
 		}
+		defer rl.Close()
 	}
 
 	if url == "" {
