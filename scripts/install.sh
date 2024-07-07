@@ -5,6 +5,12 @@
 # Ensure we exit on first error and all commands are run as intended
 set -euo pipefail
 
+if [ -f "/usr/local/bin/buzzdl" ]; then
+    echo "BuZzDL is already installed."
+    echo "Updating BuZzDL..."
+    sudo rm -rf /usr/local/bin/buzzdl
+fi
+
 # Run Go mod tidy to clean up the go.mod and go.sum files
 echo "Tidying up Go modules..."
 go mod tidy
