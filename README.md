@@ -3,7 +3,7 @@
 BuZzDL is a feature rich downloader for Bsocial.Buzz Videos.  
 It supports downloading in almost every format using ffmpeg.  
 
-## Install
+## Install/Update
 This has only been tested on linux.
 - clone this repo `git clone https://github.com/KACofficial/BuZzDL.git`
 - change directory `cd BuZzDL`
