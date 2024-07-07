@@ -1,5 +1,5 @@
-# BuZz-DL
-BuZz-DL is a feature rich downloader for Bsocial.Buzz Videos.  
+# BuZzDL
+BuZzDL is a feature rich downloader for Bsocial.Buzz Videos.  
 It supports downloading in almost every format using ffmpeg.  
 
 ## Install
