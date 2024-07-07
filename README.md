@@ -6,7 +6,6 @@ It supports downloading in almost every format using ffmpeg.
 This has only been tested on linux.
 - clone this repo `git clone https://github.com/KACofficial/BuZzDL.git`
 - change directory `cd BuZzDL`
-- run `chmod +x scripts/*`
 - run `./scripts/install.sh`
 - then you should be able to use `buzzdl` in your terminal.
 
