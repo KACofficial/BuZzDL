@@ -31,13 +31,14 @@ func StartProgram(url string, format string, output string) {
 	printASCII()
 	fmt.Print("\n")
 	fmt.Printf("Starting BuZzDL on '%s' with the file format '%s'\n", url, format)
+	video_title := getVideoTitle(url)
+	video_src, err := getVideoSrc(url, video_title)
 
-	video_src, err := getVideoSrc(url)
 	if err != nil {
 		fmt.Println("Error: ", err)
 		return
 	}
-	video_title := getVideoTitle(url)
+	
 	video_mp4_filename := convertUrlToFilename(url)
 
 	fmt.Printf("Found Video '%s', Starting Download.\n", video_title)
@@ -46,12 +47,13 @@ func StartProgram(url string, format string, output string) {
 
 	mp4_location, err := downloadFile(video_mp4_filename, video_src, output)
 
+
 	if err != nil {
 		fmt.Println("Faild: ", err)
 		return
 	}
 	fmt.Println("Done!")
-
+	formatted_location := strings.ReplaceAll(mp4_location, ".mp4", "."+format)
 	if format != "mp4" {
 		fmt.Printf("Converting to %s(Slow)...", format)
 		err := convertAndDelete(mp4_location, format)
@@ -62,7 +64,7 @@ func StartProgram(url string, format string, output string) {
 		fmt.Println("Done!")
 	}
 
-	fmt.Printf("Video '%s' has been downloaded to '%s'\n", video_title, strings.ReplaceAll(mp4_location, ".mp4", "."+format))
+	fmt.Printf("Video '%s' has been downloaded to '%s'\n", video_title, formatted_location)
 }
 
 
@@ -71,6 +73,9 @@ func convertUrlToFilename(url string) string {
 	// Find the last slash and extract the substring from there
 	splitUrl := strings.Split(url, "/")
 	filename := splitUrl[len(splitUrl)-1]
+
+	// remove any get parameters
+	filename = strings.Split(filename, "?")[0]
 
 	// Replace .html with .mp4
 	mp4Filename := strings.Replace(filename, ".html", ".mp4", 1)
@@ -94,28 +99,41 @@ func getVideoTitle(url string) string {
 	return title
 }
 
-func getVideoSrc(url string) (string, error) {
-	// Make HTTP GET request to fetch the HTML content
+
+func getVideoSrc(url string, title string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return "", fmt.Errorf("failed to fetch URL: %v", err)
 	}
 	defer resp.Body.Close()
 
-	// Parse the HTML document
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
 		return "", fmt.Errorf("failed to parse HTML: %v", err)
 	}
 
-	// Find the first <video> tag and get its src attribute(only for BuZz Clips)
-	video := doc.Find("video").First()
-	source := video.Find("source").First()
-	src, exists := source.Attr("src")
-	if !exists {
-		return "", fmt.Errorf("could not find video source")
+	var videoSrc string
+	found := false
+	doc.Find("div.swiper-slide.overflow-hidden").Each(func(i int, s *goquery.Selection) {
+		divTitle, exists := s.Attr("data-title")
+		if exists && strings.TrimSpace(divTitle) == title {
+			video := s.Find("video").First()
+			source := video.Find("source").First()
+			src, exists := source.Attr("src")
+			if exists {
+				videoSrc = src
+				found = true
+				// fmt.Printf("Found video source: '%s'\n", videoSrc)
+				return
+			}
+		}
+	})
+
+	if !found {
+		return "", fmt.Errorf("no video found with matching title '%s'", title)
 	}
-	return src, nil
+
+	return videoSrc, nil
 }
 
 func downloadFile(fileName, url, location string) (string, error) {
