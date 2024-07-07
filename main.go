@@ -31,10 +31,12 @@ func main() {
 		rl, err := readline.New("Bsocial URL?: ")
 		if err != nil {
 			fmt.Println("Error: ", err)
+			return
 		}
 		url, err = rl.Readline()
 		if err != nil {
 			fmt.Println("Error: ", err)
+			return
 		}
 		defer rl.Close()
 	}
