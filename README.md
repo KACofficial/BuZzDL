@@ -28,7 +28,8 @@ There are 3 options:
 ```
 
 ## Showcase Video.
-<iframe src="https://bsocial.buzz/embed/b2F2EvbKoMCcieQ" frameborder="0" width="700" height="400" allowfullscreen></iframe>
+(Click the image)
+[![BuZzDL Logo](images/BuZzDL-Banner.png)](https://bsocial.buzz/watch/buzzdl-showcase_b2F2EvbKoMCcieQ.html)
 
 ## Uninstall
 - run `./scripts/uninstall.sh`
