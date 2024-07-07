@@ -113,26 +113,33 @@ func getVideoSrc(url string, title string) (string, error) {
 	}
 
 	var videoSrc string
-	found := false
-	doc.Find("div.swiper-slide.overflow-hidden").Each(func(i int, s *goquery.Selection) {
-		divTitle, exists := s.Attr("data-title")
-		if exists && strings.TrimSpace(divTitle) == title {
-			video := s.Find("video").First()
-			source := video.Find("source").First()
-			src, exists := source.Attr("src")
-			if exists {
-				videoSrc = src
-				found = true
-				// fmt.Printf("Found video source: '%s'\n", videoSrc)
-				return
+	if strings.Contains(url, "shorts") {
+		found := false
+		doc.Find("div.swiper-slide.overflow-hidden").Each(func(i int, s *goquery.Selection) {
+			divTitle, exists := s.Attr("data-title")
+			if exists && strings.TrimSpace(divTitle) == title {
+				video := s.Find("video").First()
+				source := video.Find("source").First()
+				src, exists := source.Attr("src")
+				if exists {
+					videoSrc = src
+					found = true
+					// fmt.Printf("Found video source: '%s'\n", videoSrc)
+					return
+				}
 			}
+		})
+		if !found {
+			return "", fmt.Errorf("no video found with matching title '%s'", title)
 		}
-	})
-
-	if !found {
-		return "", fmt.Errorf("no video found with matching title '%s'", title)
+	} else {
+		video := doc.Find("video").First()
+		source := video.Find("source").First()
+		src, exists := source.Attr("src")
+		if exists {
+			videoSrc = src
+		}
 	}
-
 	return videoSrc, nil
 }
 
