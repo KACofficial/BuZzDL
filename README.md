@@ -1,6 +1,6 @@
 # BuZzDL
 ![BuZzDL Logo](images/BuZzDL-Banner.png)
-BuZzDL is a feature rich downloader for Bsocial.Buzz Videos.  
+BuZzDL is a feature rich downloader for [Bsocial.Buzz](https://bsocial.buzz) Videos.  
 It supports downloading in almost every format using ffmpeg.  
 
 ## Install/Update
