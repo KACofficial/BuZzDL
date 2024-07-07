@@ -44,7 +44,7 @@ func StartProgram(url string, format string, output string) {
 
 	fmt.Print("Downloading video...")
 
-	file_location, err := downloadFile(video_mp4_filename, video_src, output)
+	mp4_location, err := downloadFile(video_mp4_filename, video_src, output)
 
 	if err != nil {
 		fmt.Println("Faild: ", err)
@@ -54,7 +54,7 @@ func StartProgram(url string, format string, output string) {
 
 	if format != "mp4" {
 		fmt.Printf("Converting to %s(Slow)...", format)
-		err := convertAndDelete(file_location, format)
+		err := convertAndDelete(mp4_location, format)
 		if err != nil {
 			fmt.Println("Failed: ", err)
 			return
@@ -62,7 +62,7 @@ func StartProgram(url string, format string, output string) {
 		fmt.Println("Done!")
 	}
 
-	fmt.Printf("Video '%s' has been downloaded to '%s'\n", video_title, file_location)
+	fmt.Printf("Video '%s' has been downloaded to '%s'\n", video_title, strings.ReplaceAll(mp4_location, ".mp4", "."+format))
 }
 
 
