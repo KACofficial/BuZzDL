@@ -27,6 +27,9 @@ There are 3 options:
 ❯ buzzdl -u https://bsocial.buzz/shorts/dump-chatgpt-use-fabric-instead_olEgE6nzqOgkAA6.html -f mkv -o videos
 ```
 
+## Showcase Video.
+<iframe src="https://bsocial.buzz/embed/b2F2EvbKoMCcieQ" frameborder="0" width="700" height="400" allowfullscreen></iframe>
+
 ## Uninstall
 - run `./scripts/uninstall.sh`
 - check if `buzzdl` is removed from your terminal.
