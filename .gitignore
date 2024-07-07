@@ -1,5 +1,10 @@
 buzzdl
 
-videos/
-
 .vscode/
+
+# Ignore testing files
+videos/
+*.mp4
+*.mkv
+*.webm
+*.html
