@@ -49,7 +49,7 @@ func StartProgram(url string, format string, output string) {
 
 
 	if err != nil {
-		fmt.Println("Faild: ", err)
+		fmt.Println("Failed: ", err)
 		return
 	}
 	fmt.Println("Done!")
