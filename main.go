@@ -12,7 +12,7 @@ import (
 func main() {
 	var (
 		format string
-		url string
+		url    string
 		output string
 	)
 
